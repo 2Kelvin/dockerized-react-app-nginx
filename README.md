@@ -5,10 +5,10 @@ Minifying a react app and running the minimal build to be served by nginx docker
 ## Multi-stage dockerfile
 In the first stage `react_build`, that's where all the heavy building of the app is happening, which ends with a production levl build folder. In stage 2 `web_server`, I copied the build folder from **react_build** into this stage to be served by the `Nginx` container.
 
-I reduced the final image by 88%. The original **react_build image** image size was 775.3 mb but the final **web_server image** with nginx installed was 94.16 mb.
+**I reduced the final image by 88%**. The original **react_build image** image size was 775.3 mb but the final **web_server image** with nginx installed was 94.16 mb.
 
 ## Nginx Configuration
-I deleted the default nginx configuration in the Nginx container and replaced it with a new one that serves the react website i copied through the build files.
+I deleted the default nginx configuration in the Nginx container and replaced it with a new one that serves the react website I copied through the build files.
 ```bash
 server {
     listen       80;
@@ -16,7 +16,7 @@ server {
     server_name  localhost;
 
     location / {
-        root   /usr/share/nginx/html/build;
+        root   /usr/share/nginx/html;
         index  index.html index.htm;
     }
 
