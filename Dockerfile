@@ -2,6 +2,8 @@ FROM node:alpine AS react_build
 COPY . ./
 RUN npm ci
 RUN npm run build
+# removing any dev dependencies that were previously installed
+RUN npm prune --production
 
 FROM nginx:1.29.7-alpine AS web_server
 # copy the react build files to nginx web files location (html folder)
